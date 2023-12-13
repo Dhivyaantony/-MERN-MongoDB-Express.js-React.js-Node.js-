@@ -18,7 +18,7 @@ theme="dark"
   )
 }
 
-export default ToastContainr;
+export default ToastContainer;
 
 
 

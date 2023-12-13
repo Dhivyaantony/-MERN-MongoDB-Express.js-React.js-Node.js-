@@ -1,5 +1,5 @@
  import React, { useState } from 'react';
-import ToastContainr from './ToastContainr';
+import ToastContainer from './ToastContainr';
 
 
 import axios from 'axios';
@@ -20,7 +20,7 @@ import { setUserDetails, setUserRole } from '../../toolkit/userSlice';
   const [errors, setErrors] = useState({});
   //const[userDetails,setUserDetails]=useState({});
   const navigate = useNavigate(); 
-  const{userDetails,userRole}=useSelector((state)=>state.user)
+  const{userDetails}=useSelector((state)=>state.user)
   const dispatch=useDispatch()
 
 
@@ -86,7 +86,7 @@ import { setUserDetails, setUserRole } from '../../toolkit/userSlice';
 
   return (
     <>
-        <ToastContainr/>
+        <ToastContainer/>
 
     <div className="container">
 

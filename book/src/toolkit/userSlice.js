@@ -1,10 +1,10 @@
 import {createSlice}from "@reduxjs/toolkit";
-import { useState } from "react";
+
 
 const generalSlice = createSlice({
     name: 'user',
     initialState: {
-      userDetails: {}
+      userDetails: {},
     },
     reducers: {
       setUserDetails: (state, action) => {
@@ -13,7 +13,6 @@ const generalSlice = createSlice({
       },
     },
   });
-  
-  export const { setUserDetails, setUserRole } = generalSlice.actions;
+  export const { setUserDetails} = generalSlice.actions;
   export default generalSlice.reducer;
   

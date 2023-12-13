@@ -17,11 +17,11 @@ const userSchema = new mongoose.Schema({
 const userSchema= mongoose.Schema({
     fName: {
         type:String,
-        required:false,
+        required:true,
     },
     lName:{
         type:String,
-        required:false,
+        required:true,
     },
     email:{
         type:String,

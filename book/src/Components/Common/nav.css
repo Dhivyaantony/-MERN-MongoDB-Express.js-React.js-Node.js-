@@ -18,8 +18,16 @@ body {
   }
   
   .logo {
-    font-size: 1.5em;
+    background-image: url("C:\Users\91974\Desktop\book your court\book\assets\football-image.png"); /* Adjust the path as needed */
+    background-size: contain; /* Adjust as needed */
+    background-repeat: no-repeat;
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    /* Add other styles as needed */
   }
+  
+    
+  
   
   .nav-links {
     list-style: none;

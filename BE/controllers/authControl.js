@@ -5,26 +5,39 @@ const saltRounds = 10;
 
 const doSignUp = async (req, res) => {
     try {
-        console.log(req.body, "signupdata");
-
-        const hash = await bcrypt.hash(req.body.password, saltRounds);
-
-        const newUser = new users({
-            fname: req.body.fName,
-            lname: req.body.lName,
-            email: req.body.email,
-            password: hash
-        });
-
-        await newUser.save();
-
-        res.status(200).json({ message: 'User created' });
+      const { fName, lName, email, password } = req.body;
+  
+      // Validate required fields
+      if (!fName || typeof fName !== 'string' || fName.trim() === '') {
+        return res.status(400).json({ message: 'First name is required' });
+      }
+  
+      const hash = await bcrypt.hash(password, saltRounds);
+  
+      const newUser = new users({
+        fName: fName.trim(),
+        lName,
+        email,
+        password: hash,
+      });
+  
+      // Additional code for debugging (log some values)
+      console.log('Request body:', req.body);
+      console.log('New user:', newUser);
+  
+      await newUser.save();
+  
+      res.status(200).json({ message: 'User created' });
     } catch (error) {
-        console.error("An error occurred during signup:", error);
-        console.log("user already exist")
+      console.error("An error occurred during signup:", error);
+  
+      // Additional code for debugging (log some values)
+      console.log('Request body:', req.body);
+  
+      res.status(500).json({ message: 'Internal server error' });
     }
-};
-
+  };
+  
 const doLogin = async (req, res) => {
     try {
         console.log('Login attempt for email:', req.body.email);
