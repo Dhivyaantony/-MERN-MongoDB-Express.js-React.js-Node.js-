@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
+    
   }
   
   header {
@@ -48,7 +49,9 @@ body {
     text-align: center;
     padding: 100px 20px;
     background-color: #f0f0f0;
+    height: 300px; /* Adjust the height as needed */
   }
+  
   
   .cta-button {
     display: inline-block;
@@ -65,8 +68,9 @@ body {
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: fixed;
-    bottom: 0;
+    position:absolute;
+    
+    top: 200%;
     width: 100%;
   }
   
@@ -84,8 +88,11 @@ body {
   
   
   .user-details {
-    margin-left: auto; /* Align user details to the right side of the navbar */
-    padding: 10px; /* Add some padding for better aesthetics */
-    color: #fff; /* Text color */
-    font-weight: bold; /* Make the text bold */
+    margin-left: auto;
+    padding: 10px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #333; /* Add a background color */
+    border-radius: 5px; /* Add border-radius for rounded corners */
   }
+  

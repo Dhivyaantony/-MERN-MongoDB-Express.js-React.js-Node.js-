@@ -1,11 +1,11 @@
 import React from 'react'
-import AddNewCourtForm from '../Components/AddNewCourtForm'
+import AddCourtForm from '../Components/AddNewCourtForm'
 
 function AddNewCourt() {
   return (
     <>
     <MainNavBar />
-    <AddNewCourtForm />
+    <AddCourtForm />
     </>
   )
 }

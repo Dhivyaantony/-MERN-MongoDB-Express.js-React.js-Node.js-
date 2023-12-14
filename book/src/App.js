@@ -4,6 +4,7 @@ import Login from './Pages/Login/Login';
 import Home from './Pages/home';
 
 import 'react-toastify/dist/ReactToastify.css';
+import AddCourtForm from './Components/Common/AddCourtForm';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home/>} />
-          <Route path="/addNewCourt" element={<Home/>} />
+          <Route path="/AddFormCourt" element={<AddCourtForm/>} />
 
         </Routes>
       </BrowserRouter>
