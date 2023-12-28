@@ -32,7 +32,6 @@ const Login=()=> {
   return (
     
     <>
-         <ToastContainr/>
    
     <div className='background-radial-gradient login-page ' style={{minHeight:'100 vh'}}>
 
@@ -64,7 +63,10 @@ const Login=()=> {
     </MDBContainer>
     
     </div>
+
   </div>
+  <ToastContainr /> {/* Ensure it's placed here */}
+
   </>
   );
 }

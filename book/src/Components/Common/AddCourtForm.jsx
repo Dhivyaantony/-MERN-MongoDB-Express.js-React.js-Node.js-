@@ -2,52 +2,80 @@
 import React, { useState } from 'react';
 import './AddCourtForm.css'; // Import your CSS file
 import MainNavBar from './MainNavBar'; // Import your main navbar component
+import Footer from './Footer';
+import AxiosInstance from '../../config/AxiosInstance';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// Correct import if ToastContainr.js has a default export
+import ToastContainr from './ToastContainr';
+
+import { toastError, toastSuccess } from '../../Constants/Pluggins';
+import { useNavigate } from 'react-router-dom';
 
 const AddCourtForm = () => {
-  const [formData, setFormData] = useState({
+  const [formValue, setFormValue] = useState({
     courtName: '',
     sportType: '',
     location: '',
     description: '',
-    address: '', // Add address to the form data
+    address: '',
+    courtImage: null,
   });
+const navigate=useNavigate()
+  const [selectedImage, setSelectedImage] = useState('');
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+    const { name, value, type, files } = e.target;
+    const inputValue = type === 'file' ? files[0] : value;
+
+    setFormValue({
+      ...formValue,
+      [name]: inputValue,
     });
+
+    if (type === 'file' && inputValue) {
+      try {
+        const imageUrl = URL.createObjectURL(inputValue);
+        setSelectedImage(imageUrl);
+      } catch (error) {
+        console.error('Error creating object URL:', error);
+      }
+    }
   };
 
   const validateForm = () => {
     let isValid = true;
     const newErrors = {};
 
-    if (!formData.courtName.trim()) {
+    if (!formValue.courtName.trim()) {
       newErrors.courtName = 'Court name is required';
       isValid = false;
     }
 
-    if (!formData.sportType.trim()) {
+    if (!formValue.sportType.trim()) {
       newErrors.sportType = 'Sport type is required';
       isValid = false;
     }
 
-    if (!formData.location.trim()) {
+    if (!formValue.location.trim()) {
       newErrors.location = 'Location is required';
       isValid = false;
     }
 
-    if (!formData.description.trim()) {
+    if (!formValue.description.trim()) {
       newErrors.description = 'Description is required';
       isValid = false;
     }
 
-    if (!formData.address.trim()) {
-      newErrors.address = 'Address is required'; // Add address validation
+    if (!formValue.address.trim()) {
+      newErrors.address = 'Address is required';
+      isValid = false;
+    }
+
+    if (!formValue.courtImage) {
+      newErrors.courtImage = 'Court image is required';
       isValid = false;
     }
 
@@ -55,11 +83,34 @@ const AddCourtForm = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Perform your form submission logic here
-      console.log('Form submitted:', formData);
+      console.log('Form data:', formValue);
+      await addCourtData();
+      console.log('Form submitted successfully!');
+    }
+  };
+
+  const addCourtData = async () => {
+    try {
+      let formData = new FormData();
+      formData.append('courtName', formValue.courtName);
+      formData.append('sportType', formValue.sportType);
+      formData.append('location', formValue.location);
+      formData.append('description', formValue.description);
+      formData.append('address', formValue.address);
+      formData.append('courtImage', formValue.courtImage);
+
+      const response = await AxiosInstance.post('/admin/addCourtData', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      toastSuccess('new court added')
+      console.log('Response:', response.data);
+      navigate('/home')
+    } catch (error) {
+      console.error('Error:', error);
+      toastError('sorry')
     }
   };
 
@@ -75,7 +126,7 @@ const AddCourtForm = () => {
               type="text"
               id="courtName"
               name="courtName"
-              value={formData.courtName}
+              value={formValue.courtName}
               onChange={handleChange}
             />
             {errors.courtName && <p className="error-message">{errors.courtName}</p>}
@@ -86,7 +137,7 @@ const AddCourtForm = () => {
             <select
               id="sportType"
               name="sportType"
-              value={formData.sportType}
+              value={formValue.sportType}
               onChange={handleChange}
             >
               <option value="">Select Sport Type</option>
@@ -104,7 +155,7 @@ const AddCourtForm = () => {
               type="text"
               id="location"
               name="location"
-              value={formData.location}
+              value={formValue.location}
               onChange={handleChange}
             />
             {errors.location && <p className="error-message">{errors.location}</p>}
@@ -115,7 +166,7 @@ const AddCourtForm = () => {
             <textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={formValue.description}
               onChange={handleChange}
             />
             {errors.description && <p className="error-message">{errors.description}</p>}
@@ -126,15 +177,37 @@ const AddCourtForm = () => {
             <textarea
               id="address"
               name="address"
-              value={formData.address}
+              value={formValue.address}
               onChange={handleChange}
             />
             {errors.address && <p className="error-message">{errors.address}</p>}
           </div>
 
-          <button type="submit">Add Court</button>
+          <div className="form-group">
+            <label htmlFor="courtImage">Court Image</label>
+            <input
+              type="file"
+              id="courtImage"
+              name="courtImage"
+              accept="image/*"
+              onChange={handleChange}
+            />
+            {errors.courtImage && <p className="error-message">{errors.courtImage}</p>}
+          </div>
+
+          {selectedImage && (
+            <>
+              <div className="image-preview Container">
+                <img src={selectedImage} alt="Court Preview" width={'800px'} />
+              </div>
+            </>
+          )}
+
+          <button type="submit">Add Court Data</button>
         </form>
       </div>
+      <ToastContainr />  {/* Render ToastContainer here */}
+
     </div>
   );
 };

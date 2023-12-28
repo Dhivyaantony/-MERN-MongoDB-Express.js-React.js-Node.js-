@@ -44,9 +44,7 @@ const NavBar = () => {
       </section>
 
 
-      <footer>
-        <p>&copy; 2023 Your Turf Booking Site. All rights reserved.</p>
-      </footer>
+    
     </div>
   );
 };

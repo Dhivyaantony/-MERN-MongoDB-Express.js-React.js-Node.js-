@@ -4,20 +4,20 @@ import {  toast } from 'react-toastify';
 
 export const toastSuccess=(text)=>{
     
-    toast.success(text , {
+   return toast.success(text , {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: 1,
-        theme: "Dark",
+        progress: undefined ,
+        theme: "light",
         });
 
 }
     export const toastError = (text) => {
-        toast.error(text, {
+       return toast.error(text, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

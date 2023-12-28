@@ -1,18 +1,18 @@
  import React, { useState } from 'react';
-import ToastContainer from './ToastContainr';
-
-
 import axios from 'axios';
 import './LoginBox.css';
 import { BASE_URL } from '../../Constants/constants'
 import Home from '../../Pages/home';
 import { useNavigate } from 'react-router-dom';
-import{ toastError,toastSuccess} from '../../Constants/Pluggins'
+
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails, setUserRole } from '../../toolkit/userSlice';
+import 'react-toastify/dist/ReactToastify.css';
 
-//import { toast } from 'react-toastify';
+import ToastContainer from './ToastContainr';
 
+import { toastError, toastSuccess } from '../../Constants/Pluggins';
+import Footer from './Footer';
 
   const LoginBox = () => {
   const [email, setEmail] = useState('');
@@ -50,14 +50,16 @@ import { setUserDetails, setUserRole } from '../../toolkit/userSlice';
       if (email && password) {
         
       await axios.post(`${BASE_URL}/auth/login`,{ email,password }).then((res)=>{
+        toastSuccess("success" )
 
         console.log('Login response:', res.data)
+
         if (res.data.message === 'Login successful' && res.data.token) {
+
           localStorage.setItem('token', res.data.token)
           const parsedToken=parseJwt(res.data.token)
           localStorage.setItem('users', JSON.stringify(parsedToken))
           dispatch(setUserDetails(parsedToken))
-          toastSuccess('success' )
           navigate('/Home');
 
         } 
@@ -86,7 +88,6 @@ import { setUserDetails, setUserRole } from '../../toolkit/userSlice';
 
   return (
     <>
-        <ToastContainer/>
 
     <div className="container">
 
@@ -121,11 +122,11 @@ import { setUserDetails, setUserRole } from '../../toolkit/userSlice';
     
      
       </form>
-    
+    </div>   
+    <ToastContainer/>
     </div>
-    </div>
     
-  
+
     </>
   );
   };
