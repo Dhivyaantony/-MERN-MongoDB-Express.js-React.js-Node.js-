@@ -7,9 +7,10 @@ const AxiosInstance = axios.create({
 
 AxiosInstance.interceptors.request.use(function (config) {
   const token = localStorage.getItem('token');
-  if (token) {
-    config.headers['Authorization'] = 'Bearer ' +token; // Add a space after 'Bearer'
-  }
+  console.log('Interceptor - Token:', token);
+
+  config.headers['Authorization'] = 'Bearer ' + token;
+  
   config.headers['Access-Control-Allow-Origin'] = '*'; // This should be handled server-side, not in the request headers
 
   return config;

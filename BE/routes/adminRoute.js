@@ -3,6 +3,7 @@ const { addCourtData } = require('../controllers/adminControl');
 const router = express.Router();
 const multer = require('multer');
 const Court = require('../Model/courtModel');
+const { adminAuth } = require('../middlewares/authorization');
 
 // Define storage configuration
 const fileStorage = multer.diskStorage({
@@ -18,6 +19,6 @@ const fileStorage = multer.diskStorage({
 const upload = multer({ storage: fileStorage });
 
 // Define the route
-router.post('/addCourtData', upload.single('courtImage'), addCourtData);
+router.post('/addCourtData',adminAuth, upload.single('courtImage'), addCourtData);
 
 module.exports = router;

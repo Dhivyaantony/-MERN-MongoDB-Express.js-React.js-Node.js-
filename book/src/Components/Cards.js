@@ -5,15 +5,29 @@ import {
   MDBCardTitle,
   MDBCardText,
   MDBCardImage,
-  MDBBtn
+  MDBBtn,
+  MDBCardSubTitle
 } from 'mdb-react-ui-kit';
+import { BASE_URL } from '../Constants/constants';
+import { useNavigate } from 'react-router-dom';
 
-export default function Cards() {
+
+  export default function Cards({ data }) {
+    const navigate = useNavigate(); // Initialize useNavigate
+  
+    const handleCardClick = () => {
+      navigate(`/courtUserViewPage/${data._id}`);
+    };
   return (
-    <MDBCard style={{ maxWidth: '18rem' }}>
-      <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top' alt='...' />
+    <MDBCard style={{ maxWidth: '18rem' }}className='col-12 col-md-3 col-lg-4 col-xl-2 col-xxl-1' onClick={handleCardClick}
+    >
+      <MDBCardImage src={`${BASE_URL}/courts/${data.courtImage}`} position='top' alt='...' />
       <MDBCardBody>
-        <MDBCardTitle>Card title</MDBCardTitle>
+        <MDBCardTitle>{data?.courtName}</MDBCardTitle>
+        <MDBCardSubTitle>{data?.sportype}</MDBCardSubTitle>
+        <MDBCardSubTitle>{data?.location}</MDBCardSubTitle>
+        <MDBCardSubTitle>{data?.description}</MDBCardSubTitle>
+
         <MDBCardText>
           Some quick example text to build on the card title and make up the bulk of the card's content.
         </MDBCardText>
@@ -22,3 +36,8 @@ export default function Cards() {
     </MDBCard>
   );
 }
+
+  
+
+  // ... rest of the component
+

@@ -5,7 +5,6 @@ function AddNewCourt() {
   return (
     <>
     <MainNavBar />
-    
     <AddCourtForm />
     </>
   )

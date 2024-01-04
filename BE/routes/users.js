@@ -1,10 +1,10 @@
-var express = require('express');
-const { getAllcourtData } = require('../controllers/userControl');
-var router = express.Router();
+// routes/users.js
+const express = require('express');
+const { userAuth } = require('../middlewares/authorization');
+const { getAllcourtData, getSinglecourtData } = require('../controllers/userControl');
+const router = express.Router();
 
-/* GET users listing. */
-/*router.get('/', function(req, res) {
-  res.send('respond with a resource');
-});*/
-router.get('/getAllcourtData',getAllcourtData)
+router.get('/getAllcourtData', userAuth, getAllcourtData);
+router.get('/getSinglecourtData', userAuth, getSinglecourtData);
+
 module.exports = router;

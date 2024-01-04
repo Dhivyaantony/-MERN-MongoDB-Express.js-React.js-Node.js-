@@ -99,7 +99,9 @@ const navigate=useNavigate()
       formData.append('sportType', formValue.sportType);
       formData.append('location', formValue.location);
       formData.append('description', formValue.description);
+    
       formData.append('address', formValue.address);
+
       formData.append('courtImage', formValue.courtImage);
 
       const response = await AxiosInstance.post('/admin/addCourtData', formData, {
